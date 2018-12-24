@@ -1,4 +1,4 @@
-package org.prezydium;
+package org.prezydium.akkalearning;
 
 import org.junit.Test;
 
