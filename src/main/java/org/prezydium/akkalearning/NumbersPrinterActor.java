@@ -7,10 +7,15 @@ import akka.event.LoggingAdapter;
 
 public class NumbersPrinterActor extends AbstractActor {
 
+    private static int count = 0;
+
+    private static long startTime;
+    private static long endTime;
+
     private LoggingAdapter log = Logging.getLogger(getContext().getSystem(), this);
 
     public static Props props() {
-        return Props.create(NumbersPrinterActor.class, NumbersPrinterActor::new);
+        return Props.create(NumbersPrinterActor.class, () -> new NumbersPrinterActor(System.currentTimeMillis()));
     }
 
     public static class NumberMsg {
@@ -22,11 +27,20 @@ public class NumbersPrinterActor extends AbstractActor {
         }
     }
 
+    public NumbersPrinterActor(long start){
+        startTime = start;
+    }
+
     @Override
     public Receive createReceive() {
         return receiveBuilder()
                 .match(NumberMsg.class, number -> {
                     log.info(number.numberAsString);
+                    count++;
+                    if (count >= 9){
+                        endTime = System.currentTimeMillis();
+                        log.info("Processed 9 print messages in: " + (endTime - startTime));
+                    }
                 })
                 .build();
     }
