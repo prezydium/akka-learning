@@ -25,6 +25,10 @@ public class NumbersPrinterActor extends AbstractActor {
         public NumberMsg(String numberAsString) {
             this.numberAsString = numberAsString;
         }
+
+        public String getNumberAsString() {
+            return numberAsString;
+        }
     }
 
     public NumbersPrinterActor(long start){
@@ -43,5 +47,11 @@ public class NumbersPrinterActor extends AbstractActor {
                     }
                 })
                 .build();
+    }
+
+    @Override
+    public void postStop() throws Exception {
+        endTime = System.currentTimeMillis();
+        log.info("Poststop!: " + (endTime - startTime));
     }
 }
