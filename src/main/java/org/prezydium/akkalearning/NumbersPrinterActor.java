@@ -31,7 +31,7 @@ public class NumbersPrinterActor extends AbstractActor {
         }
     }
 
-    public NumbersPrinterActor(long start){
+    public NumbersPrinterActor(long start) {
         startTime = start;
     }
 
@@ -41,9 +41,9 @@ public class NumbersPrinterActor extends AbstractActor {
                 .match(NumberMsg.class, number -> {
                     log.info(number.numberAsString);
                     count++;
-                    if (count >= 9){
+                    if (count >= 50000) {
                         endTime = System.currentTimeMillis();
-                        log.info("Processed 9 print messages in: " + (endTime - startTime));
+                        log.info("Processed " + count + " print messages in: " + (endTime - startTime));
                     }
                 })
                 .build();

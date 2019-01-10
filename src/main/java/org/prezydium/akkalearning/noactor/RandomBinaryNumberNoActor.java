@@ -10,8 +10,8 @@ public class RandomBinaryNumberNoActor {
 
     public static void generateRandomBinaryNumberAsString() {
         String result = "";
-        for (int i = 0; i < 10000000; i++) {
-            result = new String(Integer.toBinaryString(new Random().nextInt(10000)));
+        for (int i = 0; i < 1000; i++) {
+            result = Integer.toBinaryString(new Random().nextInt(10000));
         }
         result = ("00000000000000" + result).substring(result.length());
         logger.log(Level.INFO, result);
